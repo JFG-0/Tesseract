@@ -1,0 +1,23 @@
+# Unity folders to ignore
+Library/
+Temp/
+Obj/
+Build/
+Logs/
+UserSettings/
+MemoryCaptures/
+ProjectSettings/
+
+# OS and IDE files
+.DS_Store
+.vscode/
+*.sln
+*.csproj
+*.pidb
+*.user
+*.unityproj
+*.suo
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
