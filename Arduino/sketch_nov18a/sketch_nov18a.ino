@@ -1,7 +1,7 @@
 void setup() {
   Serial.begin(9600);
-  pinMode(13, OUTPUT); // LED
-  pinMode(2, INPUT_PULLUP); // Button on pin 2
+  pinMode(13, OUTPUT);       // LED
+  pinMode(6, INPUT_PULLUP);  // Button on pin 6
 }
 
 void loop() {
@@ -17,8 +17,8 @@ void loop() {
   }
 
   // Check button state
-  if (digitalRead(2) == LOW) { // Button pressed
-    Serial.println("2"); // Send "2" to Unity
-    delay(300); // Debounce delay
+  if (digitalRead(6) == LOW) { // Button pressed
+    Serial.println("2");       // Print to Serial Monitor
+    delay(300);                // Debounce
   }
 }
