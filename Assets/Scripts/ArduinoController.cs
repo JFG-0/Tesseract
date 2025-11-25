@@ -1,51 +1,55 @@
-using System.IO.Ports;
 using UnityEngine;
 
 public class ArduinoController : MonoBehaviour
 {
-    SerialPort stream = new SerialPort("COM6", 9600); // Replace COM6 with your actual port
-    bool ledOn = false; // Track LED state
+    private SerialManager serialManager;
+    private bool ledOn = false;
 
     void Start()
     {
-        stream.Open();
+        serialManager = FindObjectOfType<SerialManager>();
+        if (serialManager == null)
+        {
+            Debug.LogError("No SerialManager found in scene!");
+        }
     }
 
     void Update()
     {
-        // Toggle LED with Space
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (serialManager != null && serialManager.IsOpen)
         {
-            if (!ledOn)
+            // Toggle LED with Space
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                stream.Write("1"); // Turn LED on
-                ledOn = true;
-                Debug.Log("LED ON");
+                if (!ledOn)
+                {
+                    serialManager.Send("1");
+                    ledOn = true;
+                    Debug.Log("LED ON");
+                }
+                else
+                {
+                    serialManager.Send("0");
+                    ledOn = false;
+                    Debug.Log("LED OFF");
+                }
             }
-            else
+
+            // Optional: Backspace forces OFF
+            if (Input.GetKeyDown(KeyCode.Backspace))
             {
-                stream.Write("0"); // Turn LED off
+                serialManager.Send("0");
                 ledOn = false;
-                Debug.Log("LED OFF");
+                Debug.Log("LED OFF (forced)");
             }
         }
-
-        // Optional: still allow Backspace to force OFF
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        else
         {
-            stream.Write("0");
-            ledOn = false;
-            Debug.Log("LED OFF (forced)");
-        }
-    }
-
-    void OnApplicationQuit()
-    {
-        if (stream != null && stream.IsOpen)
-        {
-            stream.Write("0"); // Ensure LED off before quitting
-            stream.Close();
-            Debug.Log("Sent 0 and closed port.");
+            // Helpful warning if you press keys before the port is ready
+            if (Input.anyKeyDown)
+            {
+                Debug.LogWarning("SerialManager not ready — input ignored.");
+            }
         }
     }
 }

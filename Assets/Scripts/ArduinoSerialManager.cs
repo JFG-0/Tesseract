@@ -13,13 +13,25 @@ public class SerialManager : MonoBehaviour
     // Event for incoming messages
     public event Action<string> OnMessageReceived;
 
+    // Step 2: expose readiness flag
+    public bool IsOpen => stream != null && stream.IsOpen;
+
+    void Awake()
+    {
+        // Step 1: make persistent across scene loads
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
         try
         {
             stream = new SerialPort(portName, baudRate);
             stream.ReadTimeout = readTimeout;
-            System.Threading.Thread.Sleep(2000); // let Arduino reset
+
+            // Allow Arduino reset before opening
+            System.Threading.Thread.Sleep(2000);
+
             stream.Open();
             Debug.Log($"Serial port {portName} opened at {baudRate} baud.");
         }
@@ -31,7 +43,7 @@ public class SerialManager : MonoBehaviour
 
     void Update()
     {
-        if (stream != null && stream.IsOpen)
+        if (IsOpen)
         {
             try
             {
@@ -51,7 +63,7 @@ public class SerialManager : MonoBehaviour
 
     public void Send(string message)
     {
-        if (stream != null && stream.IsOpen)
+        if (IsOpen)
         {
             try
             {
@@ -63,11 +75,15 @@ public class SerialManager : MonoBehaviour
                 Debug.LogWarning("Serial write failed: " + e.Message);
             }
         }
+        else
+        {
+            Debug.LogWarning("Attempted to send but port is not open.");
+        }
     }
 
     void OnApplicationQuit()
     {
-        if (stream != null && stream.IsOpen)
+        if (IsOpen)
         {
             stream.Close();
             Debug.Log("Closed serial port.");
