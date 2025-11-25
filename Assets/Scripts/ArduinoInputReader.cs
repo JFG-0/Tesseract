@@ -1,55 +1,49 @@
-using System.IO.Ports;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ArduinoInputReader : MonoBehaviour
 {
-    SerialPort stream = new SerialPort("COM6", 9600); // Replace with your actual port
-    bool inScene1 = true; // Track which scene is active
+    private SerialManager serialManager;
+    private bool inScene1 = true;
 
     void Start()
     {
-        stream.Open();
-        stream.ReadTimeout = 50;
-    }
-
-    void Update()
-    {
-        try
+        serialManager = FindObjectOfType<SerialManager>();
+        if (serialManager != null)
         {
-            string feedback = stream.ReadLine();
-            if (!string.IsNullOrEmpty(feedback))
-            {
-                Debug.Log("Arduino says: " + feedback);
+            serialManager.OnMessageReceived += HandleMessage;
+        }
+        else
+        {
+            Debug.LogError("No SerialManager found in scene!");
+        }
+   }
 
-                if (feedback.Trim() == "2") // Button pressed
-                {
-                    if (inScene1)
-                    {
-                        SceneManager.LoadScene("Scene2");
-                        inScene1 = false;
-                        Debug.Log("Switched to Scene2");
-                    }
-                    else
-                    {
-                        SceneManager.LoadScene("Scene1");
-                        inScene1 = true;
-                        Debug.Log("Switched to Scene1");
-                    }
-                }
+
+    private void HandleMessage(string feedback)
+    {
+        Debug.Log("Arduino says: " + feedback);
+
+        if (feedback == "2") // Button pressed
+        {
+            if (inScene1)
+            {
+                SceneManager.LoadScene("Scene2");
+                inScene1 = false;
+                Debug.Log("Switched to Scene2");
+            }
+            else
+            {
+                SceneManager.LoadScene("Scene1");
+                inScene1 = true;
+                Debug.Log("Switched to Scene1");
             }
         }
-        catch (System.TimeoutException)
-        {
-            // Ignore if no data this frame
-        }
     }
 
-    void OnApplicationQuit()
+    void OnDestroy()
     {
-        if (stream != null && stream.IsOpen)
-        {
-            stream.Close();
-        }
+        if (serialManager != null)
+            serialManager.OnMessageReceived -= HandleMessage;
     }
 }
