@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO.Ports;
 
-public class TargetChildDisplay : MonoBehaviour
+public class TargetChildDisplayIMU : MonoBehaviour
 {
     private List<Transform> childList = new List<Transform>();
     private int currentIndex = 0;
@@ -62,6 +62,9 @@ public class TargetChildDisplay : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Keypad4)) ToggleItem(4);
         if (Input.GetKeyDown(KeyCode.Keypad5)) ToggleItem(5);
         if (Input.GetKeyDown(KeyCode.Keypad6)) ToggleItem(6);
+        if (Input.GetKeyDown(KeyCode.Keypad7)) ToggleItem(7);
+        if (Input.GetKeyDown(KeyCode.Keypad8)) ToggleItem(8);
+        if (Input.GetKeyDown(KeyCode.Keypad9)) ToggleItem(9);
 
         // --- Arduino serial input with debounce ---
         if (sp != null && sp.IsOpen)
