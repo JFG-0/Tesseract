@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+  <Tracking>
+    <ImageTarget name="Aruco3-5Units" size="5.000000 5.060241" />
+    <ImageTarget name="Aruco2-5Units" size="5.000000 5.030120" />
+    <ImageTarget name="Aruco1-5Units" size="5.000000 5.090362" />
+    <ImageTarget name="Aruco0-5Units" size="5.000000 5.060241" />
+    <ImageTarget name="ArucoField-10Units" size="10.000000 10.000000" />
+    <ImageTarget name="ArucoField-50Units" size="50.000000 50.000000" />
+    <ImageTarget name="Triangles-10Units" size="10.000000 10.000000" />
+    <ImageTarget name="Squares-10Units" size="10.000000 10.000000" />
+    <ImageTarget name="Circles-10Units" size="10.000000 10.000000" />
+  </Tracking>
+</QCARConfig>
