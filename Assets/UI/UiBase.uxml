@@ -1,0 +1,6 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/StyleSheet1.uss?fileID=7433441132597879392&amp;guid=4e4b9b23829424a40a42d8bbdc8dd9ae&amp;type=3#StyleSheet1" />
+    <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgba(0, 175, 255, 0.03); -unity-background-image-tint-color: rgba(110, 255, 255, 0.88);">
+        <ui:Label text="Test title" parse-escape-sequences="false" class="header" />
+    </ui:VisualElement>
+</ui:UXML>

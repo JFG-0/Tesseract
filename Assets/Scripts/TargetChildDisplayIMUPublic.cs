@@ -2,12 +2,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.IO.Ports;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+using Vuforia;
 
 public class TargetChildDisplayIMUPublic : MonoBehaviour
 {
     [Header("Child Objects (assign manually in Inspector, 1–6)")]
-    public List<GameObject> childList = new List<GameObject>(); // assign in Inspector
+    public List<GameObject> childList = new List<GameObject>();
 
     private int currentIndex = 0;
 
@@ -15,42 +19,68 @@ public class TargetChildDisplayIMUPublic : MonoBehaviour
     public TMP_Text statusText;
     public TMP_Text instructionText;
 
-    SerialPort sp;
+    // UDP
+    private UdpClient udpClient;
+    private Thread udpThread;
+    private int udpPort = 8888;
+    private volatile int latestFace = -1;
 
-    // Debounce variables
+    // Debounce
     private int pendingFace = -1;
     private int stableCount = 0;
-    private const int requiredStableReads = 3; // number of consecutive reads before switching
+    private const int requiredStableReads = 3;
 
-    // Change detection
-    private int lastFace = -1; // track last confirmed face
+    private int lastFace = -1;
 
     void Start()
     {
-        // Hide all children initially
+        // Hide all children
         foreach (GameObject child in childList)
-        {
-            if (child != null)
-                child.SetActive(false);
-        }
+            if (child != null) child.SetActive(false);
 
-        // Show default item (index 0)
+        // Show default
         if (childList.Count > 0 && childList[0] != null)
         {
             childList[0].SetActive(true);
             currentIndex = 0;
         }
 
-        // Open Arduino serial port
-        sp = new SerialPort("COM6", 115200);
-        sp.ReadTimeout = 50;
-        try { sp.Open(); }
-        catch (System.Exception e) { Debug.LogError("Serial open failed: " + e.Message); }
+        // Start UDP listener
+        udpClient = new UdpClient(udpPort);
+        udpThread = new Thread(ReceiveUDP);
+        udpThread.IsBackground = true;
+        udpThread.Start();
+
+        Debug.Log("UDP listener started on port " + udpPort);
+
+        // Check Vuforia
+        if (VuforiaBehaviour.Instance == null)
+            Debug.LogError("VuforiaBehaviour not found! Make sure ARCamera is in the scene.");
+    }
+
+    void ReceiveUDP()
+    {
+        IPEndPoint remoteEP = new IPEndPoint(IPAddress.Any, udpPort);
+
+        while (true)
+        {
+            try
+            {
+                byte[] data = udpClient.Receive(ref remoteEP);
+                string msg = Encoding.UTF8.GetString(data).Trim();
+
+                if (int.TryParse(msg, out int face))
+                {
+                    latestFace = face;
+                }
+            }
+            catch { }
+        }
     }
 
     void Update()
     {
-        // --- Keyboard input (for testing) ---
+        // Keyboard testing
         for (int i = 0; i <= 6; i++)
         {
             if (Input.GetKeyDown(i.ToString()))
@@ -59,47 +89,29 @@ public class TargetChildDisplayIMUPublic : MonoBehaviour
                 LogChange(i);
             }
         }
-        if (Input.GetKeyDown(KeyCode.Keypad0)) { ToggleItem(0); LogChange(0); }
-        if (Input.GetKeyDown(KeyCode.Keypad1)) { ToggleItem(1); LogChange(1); }
-        if (Input.GetKeyDown(KeyCode.Keypad2)) { ToggleItem(2); LogChange(2); }
-        if (Input.GetKeyDown(KeyCode.Keypad3)) { ToggleItem(3); LogChange(3); }
-        if (Input.GetKeyDown(KeyCode.Keypad4)) { ToggleItem(4); LogChange(4); }
-        if (Input.GetKeyDown(KeyCode.Keypad5)) { ToggleItem(5); LogChange(5); }
-        if (Input.GetKeyDown(KeyCode.Keypad6)) { ToggleItem(6); LogChange(6); }
 
-        // --- Arduino serial input with debounce ---
-        if (sp != null && sp.IsOpen)
+        // UDP input with debounce
+        if (latestFace >= 1 && latestFace <= 6)
         {
-            try
+            int face = latestFace;
+
+            if (face == pendingFace)
             {
-                string line = sp.ReadLine().Trim();
-                int face;
-                if (int.TryParse(line, out face))
+                stableCount++;
+
+                if (stableCount >= requiredStableReads && face != currentIndex)
                 {
-                    if (face >= 1 && face <= 6)
-                    {
-                        if (face == pendingFace)
-                        {
-                            stableCount++;
-                            if (stableCount >= requiredStableReads && face != currentIndex)
-                            {
-                                ToggleItem(face);
-
-                                // Log only when value changes
-                                LogChange(face);
-
-                                stableCount = 0;
-                            }
-                        }
-                        else
-                        {
-                            pendingFace = face;
-                            stableCount = 1;
-                        }
-                    }
+                    ToggleItem(face);
+                    LogChange(face);
+                    ResetVuforiaTracking();
+                    stableCount = 0;
                 }
             }
-            catch (System.TimeoutException) { }
+            else
+            {
+                pendingFace = face;
+                stableCount = 1;
+            }
         }
     }
 
@@ -116,6 +128,9 @@ public class TargetChildDisplayIMUPublic : MonoBehaviour
 
             currentIndex = index;
             UpdateUI();
+
+            // 🔥 Print active scene index in console
+            Debug.Log($"Active Scene Index: {currentIndex}");
         }
     }
 
@@ -123,21 +138,39 @@ public class TargetChildDisplayIMUPublic : MonoBehaviour
     {
         if (face != lastFace)
         {
-            Debug.Log($"Arduino face changed to: {face}");
+            Debug.Log($"Face changed to: {face}");
             lastFace = face;
         }
     }
 
     private void UpdateUI()
     {
-        if (statusText != null && currentIndex < childList.Count && childList[currentIndex] != null)
+        if (statusText != null && currentIndex < childList.Count)
         {
             statusText.text = $"Active Object: {childList[currentIndex].name} (Index {currentIndex})";
         }
     }
 
+    // -------------------------------
+    // 🔥 VUFORIA RESET HOOK
+    // -------------------------------
+    private void ResetVuforiaTracking()
+    {
+    var observers = FindObjectsByType<ObserverBehaviour>(FindObjectsSortMode.None);
+
+    foreach (var obs in observers)
+    {
+        obs.enabled = false;
+        obs.enabled = true;
+    }
+
+    Debug.Log("Vuforia tracking reset");
+    }
+
+
     void OnApplicationQuit()
     {
-        if (sp != null && sp.IsOpen) sp.Close();
+        udpThread?.Abort();
+        udpClient?.Close();
     }
 }

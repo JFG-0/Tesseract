@@ -687,7 +687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -1789,6 +1789,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2183,6 +2184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1851182020}
   - component: {fileID: 1851182021}
+  - component: {fileID: 1851182022}
   m_Layer: 0
   m_Name: Scene Container
   m_TagString: Untagged
@@ -2215,12 +2217,37 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1851182019}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 057294eb2ffc999428f48d2427ee3be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   childList:
+  - {fileID: 1885047801}
+  - {fileID: 2058625255}
+  - {fileID: 315891868}
+  currentIndex: 0
+  statusText: {fileID: 0}
+  instructionText: {fileID: 0}
+  pendingFace: -1
+  stableCount: 0
+  lastFace: -1
+--- !u!114 &1851182022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851182019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6124fdd0a114a054584434075c45aa4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  childList:
+  - {fileID: 1885047801}
+  - {fileID: 2058625255}
+  - {fileID: 315891868}
   - {fileID: 1885047801}
   - {fileID: 2058625255}
   - {fileID: 315891868}
