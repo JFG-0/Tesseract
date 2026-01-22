@@ -1,0 +1,302 @@
+/* ==================== ROOT CONTAINER ==================== */
+.root-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ==================== AR BACKGROUND ==================== */
+.ar-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+/* ==================== CAMERA BLUR ==================== */
+.camera-blur {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    transition-property: background-color, opacity;
+    transition-duration: 0.5s;
+}
+
+.camera-blur.hidden {
+    background-color: rgba(0, 0, 0, 0);
+    opacity: 0;
+}
+
+/* ==================== STATE SCREENS ==================== */
+.state-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition-property: opacity;
+    transition-duration: 0.3s;
+}
+
+.state-screen.hidden {
+    display: none;
+    opacity: 0;
+}
+
+/* ==================== SPLASH SCREEN ==================== */
+#state-splash {
+    justify-content: center;
+}
+
+/* Title Box with Glassmorphism */
+.title-box {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-bottom: 60px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title-text {
+    font-size: 60px;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    margin-bottom: 10px;
+}
+
+.subtitle-text {
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.9);
+    -unity-text-align: middle-center;
+}
+
+/* Logo Cube */
+.logo-cube {
+    width: 200px;
+    height: 200px;
+    background-image: url('project://database/Assets/UI/Icons/Cube.png');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* Fade pulse animation for transition state */
+.fade-pulse {
+    transition-property: opacity;
+    transition-duration: 1s;
+    animation-name: pulse;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+/* ==================== STATE INSTRUCTION BOXES ==================== */
+#state-not-connected, #state-connected, #state-transition {
+    justify-content: space-between;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+/* Status Title */
+.status-title {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+/* Center Logo in instruction screen */
+.state-screen .logo-cube {
+    flex-grow: 1;
+    flex-shrink: 1;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+/* ==================== FRAMES CONTAINER ==================== */
+.frames-container {
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Frames at bottom for tracking state */
+.frames-container-bottom {
+    position: absolute;
+    bottom: 80px;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.instruction-frame {
+    flex-direction: column;
+    align-items: center;
+    width: 45%;
+    max-width: 200px;
+}
+
+/* Icons */
+.icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.icon-power {
+    background-image: url('project://database/Assets/UI/Icons/PowerButtonOutline.png');
+}
+
+.icon-wifi {
+    background-image: url('project://database/Assets/UI/Icons/NoWiFi_2.png');
+}
+
+.icon-scan {
+    background-image: url('project://database/Assets/UI/Icons/Scan.png');
+}
+
+.icon-flip {
+    background-image: url('project://database/Assets/UI/Icons/Swap.png');
+}
+
+.icon-tap {
+    background-image: url('project://database/Assets/UI/Icons/Explode.png');
+}
+
+.icon-rotate {
+    background-image: url('project://database/Assets/UI/Icons/Rotate.png');
+}
+
+.icon-arrow {
+    background-image: url('project://database/Assets/UI/Icons/MessageAirplane.png');
+}
+
+/* Instruction Text */
+.instruction-text {
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+    white-space: normal;
+}
+
+/* ==================== PROJECT BUTTON ==================== */
+.project-button {
+    position: absolute;
+    top: 40px;
+    width: 90%;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    border-width: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-button:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.project-button .icon-arrow {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+}
+
+.button-text {
+    font-size: 24px;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+}
+
+/* Fade-in animation */
+.fade-in {
+    transition-property: opacity;
+    transition-duration: 0.5s;
+    opacity: 1;
+}
+.landscape .frames-container {
+    width: 80%;
+    max-width: 800px;
+}
+
+.landscape .instruction-frame {
+    width: 40%;
+    max-width: 250px;
+}
+
+.landscape .instruction-text {
+    font-size: 20px;
+}
+
+.landscape .logo-cube {
+    max-width: 350px;
+    max-height: 350px;
+}
+
+/* ==================== PORTRAIT ADAPTATIONS ==================== */
+.portrait .frames-container {
+    width: 95%;
+}
+
+.portrait .instruction-frame {
+    width: 48%;
+}
+
+.portrait .instruction-text {
+    font-size: 16px;
+}
+
+.portrait .title-text {
+    font-size: 50px;
+}
+
+.portrait .subtitle-text {
+    font-size: 20px;
+}
+
+/* ==================== SMALL SCREEN ADAPTATIONS ==================== */
+@media (max-height: 600px) {
+    .title-text {
+        font-size: 40px;
+    }
+    
+    .subtitle-text {
+        font-size: 18px;
+    }
+    
+    .logo-cube {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .instruction-text {
+        font-size: 14px;
+    }
+}

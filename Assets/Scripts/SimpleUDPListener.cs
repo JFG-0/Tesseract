@@ -1,3 +1,5 @@
+//Test script to confirm whether Unity can receive UDP packets correctly
+
 using UnityEngine;
 using System.Net;
 using System.Net.Sockets;

@@ -8,14 +8,14 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Arduino launch set.unity
     guid: 9bb176e79470068448f8183e6c15ffa5
   - enabled: 0
-    path: Assets/Scenes/Scene1.unity
+    path: Assets/Scenes/Scene tester.unity
     guid: 3b14f04d5b4453649b38e2c181b7c182
   - enabled: 0
-    path: Assets/Scenes/Scene2.unity
+    path: Assets/Scenes/Test UDP.unity
     guid: f1bb67f2573bb7d47a9703cab33a3f1e
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 9d90d9146ee25a042af6c1791f5b5a0e, type: 2}

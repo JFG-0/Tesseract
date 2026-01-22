@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+  <Tracking>
+    <ImageTarget name="van_gogh_flowers_scaled2mb50mb" size="0.500000 0.500000" />
+    <ImageTarget name="starry-night_scaled2mb50cm" size="0.500000 0.499859" />
+    <ImageTarget name="picasso_2_scaled2mb50cm" size="0.500000 0.499859" />
+    <ImageTarget name="kandinsky2_scaled50cm" size="0.500000 0.500000" />
+    <ImageTarget name="kandinsky_scaled50cm" size="0.500000 0.501410" />
+    <ImageTarget name="jackson_pollock_scaled50cm" size="0.500000 0.500000" />
+  </Tracking>
+</QCARConfig>

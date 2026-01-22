@@ -1,0 +1,89 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <Style src="project://database/Assets/UI/USS/TesseractStyle.uss"/>
+    
+    <!-- Root Container -->
+    <ui:VisualElement name="root-container" class="root-container">
+        
+        <!-- Camera Blur Overlay -->
+        <ui:VisualElement name="camera-blur" class="camera-blur"/>
+        
+        <!-- ========== STATE 1: SPLASH SCREEN ========== -->
+        <ui:VisualElement name="state-splash" class="state-screen">
+            <ui:VisualElement name="splash-title-box" class="title-box">
+                <ui:Label name="splash-title" text="Tesseract" class="title-text"/>
+                <ui:Label name="splash-subtitle" text="Welcome to our work" class="subtitle-text"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="splash-logo" class="logo-cube"/>
+        </ui:VisualElement>
+        
+        <!-- ========== STATE 2: NOT CONNECTED ========== -->
+        <ui:VisualElement name="state-not-connected" class="state-screen hidden">
+            <ui:Label name="notconnected-title" text="Find the cube" class="status-title"/>
+            <ui:VisualElement name="notconnected-logo" class="logo-cube"/>
+            <ui:VisualElement name="notconnected-frames" class="frames-container">
+                <ui:VisualElement name="notconnected-left" class="instruction-frame">
+                    <ui:VisualElement class="icon icon-power"/>
+                    <ui:Label text="Make sure the cube is turned on" class="instruction-text"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="notconnected-right" class="instruction-frame">
+                    <ui:VisualElement class="icon icon-wifi"/>
+                    <ui:Label text="Make sure you are connected to LAN" class="instruction-text"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <!-- ========== STATE 3: CONNECTED (NO TRACKING) ========== -->
+        <ui:VisualElement name="state-connected" class="state-screen hidden">
+            <ui:Label name="connected-title" text="Getting started" class="status-title"/>
+            <ui:VisualElement name="connected-logo" class="logo-cube"/>
+            <ui:VisualElement name="connected-frames" class="frames-container">
+                <ui:VisualElement name="connected-left" class="instruction-frame">
+                    <ui:VisualElement class="icon icon-scan"/>
+                    <ui:Label text="Scan the face up in the cube" class="instruction-text"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="connected-right" class="instruction-frame">
+                    <ui:VisualElement class="icon icon-flip"/>
+                    <ui:Label text="Flip the cube to swap project" class="instruction-text"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <!-- ========== STATE 4: TRACKING (AR ACTIVE) ========== -->
+        <ui:VisualElement name="state-tracking" class="state-screen hidden">
+            <!-- Project Button at Top -->
+            <ui:Button name="project-button" class="project-button">
+                <ui:VisualElement class="icon icon-arrow"/>
+                <ui:Label text="Let's discuss your project" class="button-text"/>
+            </ui:Button>
+            
+            <!-- Instruction Frames at Bottom -->
+            <ui:VisualElement name="tracking-frames" class="frames-container-bottom">
+                <ui:VisualElement name="tracking-left" class="instruction-frame">
+                    <ui:VisualElement class="icon icon-tap"/>
+                    <ui:Label text="Tap twice to explode view" class="instruction-text"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="tracking-right" class="instruction-frame">
+                    <ui:VisualElement class="icon icon-rotate"/>
+                    <ui:Label text="Drag to rotate" class="instruction-text"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <!-- ========== STATE 5: TRANSITION (FACE CHANGE) ========== -->
+        <ui:VisualElement name="state-transition" class="state-screen hidden">
+            <ui:Label name="transition-title" text="Loading project" class="status-title"/>
+            <ui:VisualElement name="transition-logo" class="logo-cube fade-pulse"/>
+            <ui:VisualElement name="transition-frames" class="frames-container">
+                <ui:VisualElement name="transition-left" class="instruction-frame">
+                    <ui:VisualElement class="icon icon-scan"/>
+                    <ui:Label text="Scan the face up in the cube" class="instruction-text"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="transition-right" class="instruction-frame">
+                    <ui:VisualElement class="icon icon-flip"/>
+                    <ui:Label text="Flip the cube to swap project" class="instruction-text"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+    </ui:VisualElement>
+</ui:UXML>
