@@ -33,6 +33,8 @@ public class TesseractUIManager : MonoBehaviour
     private int lastPacketCount = 0;
     private float connectionCheckTime = 0f;
     
+    private ProjectInfo currentProject = null;
+    
     void Awake()
     {
         // Subscribe to Unity's log messages
@@ -43,6 +45,25 @@ public class TesseractUIManager : MonoBehaviour
     {
         // Unsubscribe from log messages
         Application.logMessageReceived -= OnLogMessageReceived;
+    }
+    
+    void ConfigurePickingModes()
+    {
+        // Root and background: Ignore (pass clicks through to AR)
+        if (root != null)
+            root.pickingMode = PickingMode.Ignore;
+        
+        // All state screens: Ignore by default (AR interactivity)
+        if (stateSplash != null) stateSplash.pickingMode = PickingMode.Ignore;
+        if (stateNotConnected != null) stateNotConnected.pickingMode = PickingMode.Ignore;
+        if (stateConnected != null) stateConnected.pickingMode = PickingMode.Ignore;
+        if (stateTracking != null) stateTracking.pickingMode = PickingMode.Ignore;
+        if (stateTransition != null) stateTransition.pickingMode = PickingMode.Ignore;
+        
+        // Blur: Ignore (should not block clicks)
+        if (cameraBlur != null) cameraBlur.pickingMode = PickingMode.Ignore;
+        
+        Debug.Log("[UIManager] Picking modes configured - UI passes through to AR by default");
     }
     
     void OnLogMessageReceived(string logString, string stackTrace, LogType type)
@@ -61,10 +82,10 @@ public class TesseractUIManager : MonoBehaviour
     
     void Start()
     {
-        // Find VuforiaIMUController if not assigned
+        // Find VuforiaIMUController if not assigned (using non-deprecated method)
         if (imuController == null)
         {
-            imuController = FindObjectOfType<VuforiaIMUController>();
+            imuController = FindFirstObjectByType<VuforiaIMUController>();
             if (imuController == null)
             {
                 Debug.LogError("TesseractUIManager: Cannot find VuforiaIMUController!");
@@ -84,11 +105,22 @@ public class TesseractUIManager : MonoBehaviour
         stateTracking = root.Q<VisualElement>("state-tracking");
         stateTransition = root.Q<VisualElement>("state-transition");
         
-        // Setup project button
+        // Configure picking modes for proper event handling
+        ConfigurePickingModes();
+        
+        // CRITICAL FIX: Setup button with proper picking mode
         var projectBtn = stateTracking?.Q<Button>("project-button");
         if (projectBtn != null)
         {
-            projectBtn.clicked += () => Application.OpenURL("https://www.behance.net/yourprofile");
+            projectBtn.pickingMode = PickingMode.Position; // Receive clicks
+            projectBtn.clicked += OnProjectButtonClicked;
+            Debug.Log("✓ Project button found in UXML");
+            Debug.Log($"  - Picking mode: {projectBtn.pickingMode}");
+            Debug.Log($"  - Enabled: {projectBtn.enabledSelf}");
+        }
+        else
+        {
+            Debug.LogError("✗ Project button NOT found in UXML!");
         }
         
         // Start with splash
@@ -166,7 +198,86 @@ public class TesseractUIManager : MonoBehaviour
             if (face != lastKnownFace && face > 0)
             {
                 lastKnownFace = face;
+                UpdateCurrentProject(face);
                 StartCoroutine(FaceChangeTransition());
+            }
+        }
+    }
+    
+    void UpdateCurrentProject(int faceID)
+    {
+        // Get the active ImageTarget from VuforiaIMUController
+        GameObject activeTarget = null;
+        
+        switch (faceID)
+        {
+            case 1: activeTarget = imuController.imageTarget1; break;
+            case 2: activeTarget = imuController.imageTarget2; break;
+            case 3: activeTarget = imuController.imageTarget3; break;
+            case 4: activeTarget = imuController.imageTarget4; break;
+            case 5: activeTarget = imuController.imageTarget5; break;
+            case 6: activeTarget = imuController.imageTarget6; break;
+        }
+        
+        if (activeTarget != null)
+        {
+            currentProject = activeTarget.GetComponent<ProjectInfo>();
+            
+            if (currentProject != null)
+            {
+                Debug.Log($"[UIManager] Current project: {currentProject.projectName}");
+                
+                // Optional: Update button text with project name
+                UpdateProjectButtonText();
+            }
+            else
+            {
+                Debug.LogWarning($"[UIManager] No ProjectInfo on {activeTarget.name}");
+            }
+        }
+    }
+    
+    void UpdateProjectButtonText()
+    {
+        if (stateTracking == null || currentProject == null) return;
+        
+        var projectBtn = stateTracking.Q<Button>("project-button");
+        var buttonLabel = projectBtn?.Q<Label>();
+        
+        if (buttonLabel != null)
+        {
+            // Option 1: Generic text
+            buttonLabel.text = "Let's discuss your project";
+            
+            // Option 2: Include project name
+            // buttonLabel.text = $"Discuss {currentProject.projectName}";
+        }
+    }
+    
+    void OnProjectButtonClicked()
+    {
+        Debug.Log("[UIManager] Project button clicked!");
+        
+        if (currentProject != null)
+        {
+            Debug.Log($"[UIManager] Opening URL for: {currentProject.projectName}");
+            currentProject.OpenCreatorURL();
+        }
+        else
+        {
+            Debug.LogWarning("[UIManager] No active project - checking current face...");
+            
+            // Fallback: try to get current project now
+            UpdateCurrentProjectFromCurrentFace();
+            
+            if (currentProject != null)
+            {
+                Debug.Log($"[UIManager] Found project: {currentProject.projectName}, opening URL");
+                currentProject.OpenCreatorURL();
+            }
+            else
+            {
+                Debug.LogError("[UIManager] Still no project found! Check if ProjectInfo component is attached to ImageTargets");
             }
         }
     }
@@ -193,7 +304,30 @@ public class TesseractUIManager : MonoBehaviour
         if (newState != currentState)
         {
             Debug.Log($"[UIManager] State change: {currentState} → {newState}");
+            
+            // Update current project when entering tracking state
+            if (newState == UIState.Tracking)
+            {
+                UpdateCurrentProjectFromCurrentFace();
+            }
+            
             ShowState(newState);
+        }
+    }
+    
+    void UpdateCurrentProjectFromCurrentFace()
+    {
+        // Read current face from IMU controller
+        var currentFaceField = imuController.GetType().GetField("currentFaceID",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        
+        if (currentFaceField != null)
+        {
+            int face = (int)currentFaceField.GetValue(imuController);
+            if (face > 0)
+            {
+                UpdateCurrentProject(face);
+            }
         }
     }
 

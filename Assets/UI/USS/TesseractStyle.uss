@@ -91,13 +91,10 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
-/* Fade pulse animation for transition state */
+/* Fade pulse for transition state (using opacity transition only) */
 .fade-pulse {
     transition-property: opacity;
     transition-duration: 1s;
-    animation-name: pulse;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
 }
 
 /* ==================== STATE INSTRUCTION BOXES ==================== */
@@ -217,10 +214,19 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    cursor: link;
+    transition-property: background-color, scale;
+    transition-duration: 0.2s;
 }
 
 .project-button:hover {
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: rgba(255, 255, 255, 0.35);
+    scale: 1.02;
+}
+
+.project-button:active {
+    background-color: rgba(255, 255, 255, 0.5);
+    scale: 0.98;
 }
 
 .project-button .icon-arrow {
@@ -241,6 +247,8 @@
     transition-duration: 0.5s;
     opacity: 1;
 }
+
+/* ==================== LANDSCAPE ADAPTATIONS ==================== */
 .landscape .frames-container {
     width: 80%;
     max-width: 800px;

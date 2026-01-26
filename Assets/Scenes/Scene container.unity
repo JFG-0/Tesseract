@@ -128,6 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 212661677}
+  - component: {fileID: 212661678}
   m_Layer: 0
   m_Name: Child Scene 4 Moka
   m_TagString: Untagged
@@ -151,6 +152,22 @@ Transform:
   - {fileID: 1796968591}
   m_Father: {fileID: 1851182020}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &212661678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212661676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8269e150dc67dd94e808f8adc4b9a21d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectName: Moka
+  creatorURL: https://www.bialetti.com/it_it/
+  creatorName: Alfonso Bialetti
+  description: 
 --- !u!1 &260618320
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,6 +425,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 315891869}
+  - component: {fileID: 315891870}
   m_Layer: 0
   m_Name: ChildScene 3 Monkey
   m_TagString: Untagged
@@ -426,11 +444,27 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1806403591}
   m_Father: {fileID: 1851182020}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &315891870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315891868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8269e150dc67dd94e808f8adc4b9a21d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectName: Susy
+  creatorURL: https://studio.blender.org/training/
+  creatorName: Blender
+  description: 
 --- !u!1001 &407010834
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -822,7 +856,7 @@ GameObject:
   - component: {fileID: 580836084}
   - component: {fileID: 580836087}
   - component: {fileID: 580836086}
-  - component: {fileID: 580836085}
+  - component: {fileID: 580836088}
   m_Layer: 0
   m_Name: ImageTarget
   m_TagString: Untagged
@@ -845,25 +879,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2027155578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &580836085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 580836083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mObserverBehaviour: {fileID: 580836087}
-  mHiddenRoot: {fileID: 0}
-  mTargetName: jackson_pollock_scaled50cm
-  mDatasetName: Vuforia/TesseractPaintings.xml
-  mCastedBehaviour: {fileID: 580836087}
-  mMeshFilter: {fileID: 0}
-  mMeshRenderer: {fileID: 0}
 --- !u!114 &580836086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -934,7 +949,26 @@ MonoBehaviour:
   mMotionHint: 1
   mTrackingOptimization: 0
   mTrackingOptimizationNeedsUpgrade: 0
-  mPreview: {fileID: 580836085}
+  mPreview: {fileID: 580836088}
+--- !u!114 &580836088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580836083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mObserverBehaviour: {fileID: 580836087}
+  mHiddenRoot: {fileID: 0}
+  mTargetName: jackson_pollock_scaled50cm
+  mDatasetName: Vuforia/TesseractPaintings.xml
+  mCastedBehaviour: {fileID: 580836087}
+  mMeshFilter: {fileID: 0}
+  mMeshRenderer: {fileID: 0}
 --- !u!1001 &690455339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1024,7 +1058,7 @@ GameObject:
   - component: {fileID: 716012651}
   - component: {fileID: 716012654}
   - component: {fileID: 716012653}
-  - component: {fileID: 716012652}
+  - component: {fileID: 716012655}
   m_Layer: 0
   m_Name: ImageTarget
   m_TagString: Untagged
@@ -1048,25 +1082,6 @@ Transform:
   - {fileID: 407010835}
   m_Father: {fileID: 1065782480}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &716012652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 716012650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mObserverBehaviour: {fileID: 716012654}
-  mHiddenRoot: {fileID: 0}
-  mTargetName: kandinsky_scaled50cm
-  mDatasetName: Vuforia/TesseractPaintings.xml
-  mCastedBehaviour: {fileID: 716012654}
-  mMeshFilter: {fileID: 0}
-  mMeshRenderer: {fileID: 0}
 --- !u!114 &716012653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1137,7 +1152,26 @@ MonoBehaviour:
   mMotionHint: 1
   mTrackingOptimization: 0
   mTrackingOptimizationNeedsUpgrade: 0
-  mPreview: {fileID: 716012652}
+  mPreview: {fileID: 716012655}
+--- !u!114 &716012655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716012650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mObserverBehaviour: {fileID: 716012654}
+  mHiddenRoot: {fileID: 0}
+  mTargetName: kandinsky_scaled50cm
+  mDatasetName: Vuforia/TesseractPaintings.xml
+  mCastedBehaviour: {fileID: 716012654}
+  mMeshFilter: {fileID: 0}
+  mMeshRenderer: {fileID: 0}
 --- !u!1 &901134780
 GameObject:
   m_ObjectHideFlags: 0
@@ -1172,9 +1206,9 @@ MonoBehaviour:
   imageTarget1: {fileID: 1885047801}
   imageTarget2: {fileID: 2058625255}
   imageTarget3: {fileID: 315891868}
-  imageTarget4: {fileID: 1885047801}
-  imageTarget5: {fileID: 2058625255}
-  imageTarget6: {fileID: 315891868}
+  imageTarget4: {fileID: 212661676}
+  imageTarget5: {fileID: 1065782479}
+  imageTarget6: {fileID: 2058625255}
   debugText: {fileID: 1362167794}
 --- !u!4 &901134783
 Transform:
@@ -1200,16 +1234,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 1806403591}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7533f30a93657984c97bf60b0cb5c769, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7533f30a93657984c97bf60b0cb5c769, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7533f30a93657984c97bf60b0cb5c769, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7533f30a93657984c97bf60b0cb5c769, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7533f30a93657984c97bf60b0cb5c769, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7533f30a93657984c97bf60b0cb5c769, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7533f30a93657984c97bf60b0cb5c769, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1238,6 +1284,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 7533f30a93657984c97bf60b0cb5c769, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7533f30a93657984c97bf60b0cb5c769, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7533f30a93657984c97bf60b0cb5c769, type: 3}
       propertyPath: m_Name
@@ -1386,7 +1436,7 @@ Camera:
     height: 1
   near clip plane: 0.05
   far clip plane: 2000
-  field of view: 60
+  field of view: 13
   orthographic: 0
   orthographic size: 5
   m_Depth: 1
@@ -1413,7 +1463,7 @@ Transform:
   m_GameObject: {fileID: 956340276}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: -10.34, y: 9.1, z: 7.08}
+  m_LocalPosition: {x: 0, y: 5, z: -2.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1431,7 +1481,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c638fb32ddc094785e2cb7dc101908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <isRenderingTarget>k__BackingField: 0
 --- !u!1 &1058383084
 GameObject:
   m_ObjectHideFlags: 0
@@ -1520,6 +1569,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1065782480}
+  - component: {fileID: 1065782481}
   m_Layer: 0
   m_Name: Child Scene 5 Octo
   m_TagString: Untagged
@@ -1543,6 +1593,22 @@ Transform:
   - {fileID: 716012651}
   m_Father: {fileID: 1851182020}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1065782481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065782479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8269e150dc67dd94e808f8adc4b9a21d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectName: Octo
+  creatorURL: https://www.linkedin.com/in/filippo-benvenuti-/
+  creatorName: Filippo Benvenuti
+  description: 
 --- !u!1 &1280788451 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 73d7ad472863a1144bff4389eb1c09f3, type: 3}
@@ -1611,7 +1677,7 @@ GameObject:
   - component: {fileID: 1294173824}
   - component: {fileID: 1294173827}
   - component: {fileID: 1294173826}
-  - component: {fileID: 1294173825}
+  - component: {fileID: 1294173828}
   m_Layer: 0
   m_Name: Image Target GH
   m_TagString: Untagged
@@ -1635,25 +1701,6 @@ Transform:
   - {fileID: 2052398887}
   m_Father: {fileID: 2058625256}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1294173825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1294173823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mObserverBehaviour: {fileID: 1294173827}
-  mHiddenRoot: {fileID: 0}
-  mTargetName: starry-night_scaled2mb50cm
-  mDatasetName: Vuforia/TesseractPaintings.xml
-  mCastedBehaviour: {fileID: 1294173827}
-  mMeshFilter: {fileID: 0}
-  mMeshRenderer: {fileID: 0}
 --- !u!114 &1294173826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1724,7 +1771,26 @@ MonoBehaviour:
   mMotionHint: 1
   mTrackingOptimization: 0
   mTrackingOptimizationNeedsUpgrade: 0
-  mPreview: {fileID: 1294173825}
+  mPreview: {fileID: 1294173828}
+--- !u!114 &1294173828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294173823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mObserverBehaviour: {fileID: 1294173827}
+  mHiddenRoot: {fileID: 0}
+  mTargetName: starry-night_scaled2mb50cm
+  mDatasetName: Vuforia/TesseractPaintings.xml
+  mCastedBehaviour: {fileID: 1294173827}
+  mMeshFilter: {fileID: 0}
+  mMeshRenderer: {fileID: 0}
 --- !u!1 &1362167793
 GameObject:
   m_ObjectHideFlags: 0
@@ -2197,7 +2263,7 @@ GameObject:
   - component: {fileID: 1796968591}
   - component: {fileID: 1796968594}
   - component: {fileID: 1796968593}
-  - component: {fileID: 1796968592}
+  - component: {fileID: 1796968595}
   m_Layer: 0
   m_Name: ImageTarget
   m_TagString: Untagged
@@ -2221,25 +2287,6 @@ Transform:
   - {fileID: 467155425}
   m_Father: {fileID: 212661677}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1796968592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1796968590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mObserverBehaviour: {fileID: 1796968594}
-  mHiddenRoot: {fileID: 0}
-  mTargetName: picasso_2_scaled2mb50cm
-  mDatasetName: Vuforia/TesseractPaintings.xml
-  mCastedBehaviour: {fileID: 1796968594}
-  mMeshFilter: {fileID: 0}
-  mMeshRenderer: {fileID: 0}
 --- !u!114 &1796968593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2310,7 +2357,26 @@ MonoBehaviour:
   mMotionHint: 1
   mTrackingOptimization: 0
   mTrackingOptimizationNeedsUpgrade: 0
-  mPreview: {fileID: 1796968592}
+  mPreview: {fileID: 1796968595}
+--- !u!114 &1796968595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796968590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mObserverBehaviour: {fileID: 1796968594}
+  mHiddenRoot: {fileID: 0}
+  mTargetName: picasso_2_scaled2mb50cm
+  mDatasetName: Vuforia/TesseractPaintings.xml
+  mCastedBehaviour: {fileID: 1796968594}
+  mMeshFilter: {fileID: 0}
+  mMeshRenderer: {fileID: 0}
 --- !u!1 &1806403590
 GameObject:
   m_ObjectHideFlags: 0
@@ -2341,7 +2407,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 901530124}
   m_Father: {fileID: 315891869}
@@ -2405,13 +2471,13 @@ MonoBehaviour:
   PreviewVisible: 1
   RuntimeOcclusion: 0
   RuntimeCollider: 0
-  mTrackableName: target02-10Units
+  mTrackableName: target02
   mInitializedInEditor: 1
   mDataSetPath: Vuforia/TargetGravel.xml
-  mAspectRatio: 0.7070312
+  mAspectRatio: 0.7070296
   mImageTargetType: 0
-  mWidth: 10
-  mHeight: 7.070312
+  mWidth: 0.27
+  mHeight: 0.190898
   mRuntimeTexture: {fileID: 0}
   mMotionHint: 1
   mTrackingOptimization: 0
@@ -2431,7 +2497,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mObserverBehaviour: {fileID: 1806403594}
   mHiddenRoot: {fileID: 0}
-  mTargetName: target02-10Units
+  mTargetName: target02
   mDatasetName: Vuforia/TargetGravel.xml
   mCastedBehaviour: {fileID: 1806403594}
   mMeshFilter: {fileID: 0}
@@ -2571,7 +2637,7 @@ Transform:
   m_GameObject: {fileID: 1851182019}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.500218, y: -1.5399755, z: 13.664767}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2674,6 +2740,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1885047802}
+  - component: {fileID: 1885047803}
   m_Layer: 0
   m_Name: Child Scene 1 Vesta
   m_TagString: Untagged
@@ -2697,6 +2764,22 @@ Transform:
   - {fileID: 260618321}
   m_Father: {fileID: 1851182020}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1885047803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885047801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8269e150dc67dd94e808f8adc4b9a21d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectName: Vesta
+  creatorURL: https://www.linkedin.com/in/filippo-benvenuti-/
+  creatorName: Filippo Benvenuti
+  description: 
 --- !u!1 &2027155577
 GameObject:
   m_ObjectHideFlags: 0
@@ -2712,7 +2795,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2027155578
 Transform:
   m_ObjectHideFlags: 0
@@ -2797,6 +2880,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ContenitoreGelatiera
       objectReference: {fileID: 0}
+    - target: {fileID: 3754186950065954389, guid: 2e4cfe05e085a42468e66ffb9ad1bec9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2816,6 +2903,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2058625256}
+  - component: {fileID: 2058625257}
   m_Layer: 0
   m_Name: Child Scene 2 Gelathome
   m_TagString: Untagged
@@ -2840,6 +2928,22 @@ Transform:
   - {fileID: 1294173824}
   m_Father: {fileID: 1851182020}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2058625257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058625255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8269e150dc67dd94e808f8adc4b9a21d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectName: Gelathome
+  creatorURL: https://www.linkedin.com/in/juan-fernando-gonz%C3%A1lez-garc%C3%ADa-7a4a16ab/
+  creatorName: Juan Fernando Gonzalez Garcia
+  description: 
 --- !u!1001 &2133025101
 PrefabInstance:
   m_ObjectHideFlags: 0
