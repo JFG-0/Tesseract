@@ -139,10 +139,12 @@
 /* Frames at bottom for tracking state */
 .frames-container-bottom {
     position: absolute;
-    bottom: 80px;
+    bottom: 40px;
     width: 90%;
+    height: 25%;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -150,14 +152,16 @@
 .instruction-frame {
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 45%;
     max-width: 200px;
+    height: 100%;
 }
 
 /* Icons */
 .icon {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     margin-bottom: 15px;
     -unity-background-scale-mode: scale-to-fit;
 }
@@ -179,11 +183,11 @@
 }
 
 .icon-tap {
-    background-image: url('project://database/Assets/UI/Icons/Explode.png');
+    background-image: url('project://database/Assets/UI/Icons/Exploded view icon.png');
 }
 
 .icon-rotate {
-    background-image: url('project://database/Assets/UI/Icons/Rotate.png');
+    background-image: url('project://database/Assets/UI/Icons/Rotate icon.png');
 }
 
 .icon-arrow {
@@ -192,7 +196,7 @@
 
 /* Instruction Text */
 .instruction-text {
-    font-size: 18px;
+    font-size: 20px;
     color: rgb(255, 255, 255);
     -unity-text-align: middle-center;
     white-space: normal;
@@ -204,8 +208,9 @@
     top: 40px;
     width: 90%;
     max-width: 600px;
+    height: 20%;
     background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 15px;
+    border-radius: 5%;
     border-width: 0;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -268,6 +273,11 @@
     max-height: 350px;
 }
 
+.landscape .project-button {
+    height: 25%;
+    border-radius: 6.25%;
+}
+
 /* ==================== PORTRAIT ADAPTATIONS ==================== */
 .portrait .frames-container {
     width: 95%;
@@ -305,6 +315,31 @@
     }
     
     .instruction-text {
-        font-size: 14px;
+        font-size: 16px;
+    }
+    
+    .icon {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .project-button {
+        height: 20%;
+        min-height: 80px;
+        border-radius: 5%;
+    }
+    
+    .project-button .icon-arrow {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .button-text {
+        font-size: 20px;
+    }
+    
+    .frames-container-bottom {
+        height: 25%;
+        min-height: 120px;
     }
 }

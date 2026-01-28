@@ -1316,7 +1316,7 @@ MonoBehaviour:
   imageTarget3: {fileID: 315891868}
   imageTarget4: {fileID: 212661676}
   imageTarget5: {fileID: 1065782479}
-  imageTarget6: {fileID: 2058625255}
+  imageTarget6: {fileID: 2027155577}
   debugText: {fileID: 1362167794}
 --- !u!4 &901134783
 Transform:
