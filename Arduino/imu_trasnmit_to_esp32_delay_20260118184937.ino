@@ -10,20 +10,26 @@ const float faceThresholdDeg = 15.0f;
 unsigned long lastPrint = 0;
 
 void setup() {
-  Serial.begin(115200);      // USB Serial Monitor
-  Serial1.begin(9600);       // TX-only UART to ESP32
+  Serial.begin(115200);      
+  Serial1.begin(9600);       
 
   Wire.begin();
+  
+  // Aggiungiamo un piccolo ritardo per far stabilizzare la tensione
+  delay(1000); 
 
+  Serial.println("Inizializzazione MPU...");
   mpu.initialize();
-  if (!mpu.testConnection()) {
-    Serial.println("MPU6050 connection failed");
-    while (1);
+
+  // Riprova finché non si connette, non bloccarti per sempre!
+  while (!mpu.testConnection()) {
+    Serial.println("MPU connection failed... Riprovo tra 1s");
+    delay(1000);
+    mpu.initialize(); // Riprova a inizializzare
   }
 
   filter.begin(sampleFreq);
-
-  Serial.println("MKR1010 IMU + TX UART ready");
+  Serial.println("MKR1010 IMU + TX UART ready - SYSTEM STABLE");
 }
 
 int classifyFaceFromGravity(float gx, float gy, float gz) {

@@ -123,7 +123,10 @@ public class VuforiaIMUController : MonoBehaviour
                 {
                     if (int.TryParse(text, out int faceID))
                     {
-                        if (faceID >= 1 && faceID <= 6)
+                        // MODIFIED: Accept 0-6 instead of just 1-6
+                        // 0 = no valid face (cube not properly placed)
+                        // 1-6 = valid face
+                        if (faceID >= 0 && faceID <= 6)
                         {
                             currentFaceID = faceID;
                             newDataAvailable = true;
@@ -152,14 +155,29 @@ public class VuforiaIMUController : MonoBehaviour
                 // Only switch if face actually changed
                 if (currentFaceID != lastActiveFaceID)
                 {
-                    SwitchToFace(currentFaceID);
-                    lastActiveFaceID = currentFaceID;
-                    
-                    Debug.Log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-                    Debug.Log($"🎲 CUBE ROTATED TO FACE: {currentFaceID}");
-                    Debug.Log($"✓ Active: {imageTargets[currentFaceID - 1].name}");
-                    Debug.Log($"📦 Total Packets: {totalPackets}");
-                    Debug.Log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+                    if (currentFaceID == 0)
+                    {
+                        // Face 0 = cube not properly placed, deactivate everything
+                        DeactivateAllTargets();
+                        lastActiveFaceID = 0;
+                        
+                        Debug.Log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+                        Debug.Log("⚠️ CUBE NOT PLACED - NO VALID FACE");
+                        Debug.Log("All targets deactivated");
+                        Debug.Log($"📦 Total Packets: {totalPackets}");
+                        Debug.Log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+                    }
+                    else
+                    {
+                        SwitchToFace(currentFaceID);
+                        lastActiveFaceID = currentFaceID;
+                        
+                        Debug.Log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+                        Debug.Log($"🎲 CUBE ROTATED TO FACE: {currentFaceID}");
+                        Debug.Log($"✓ Active: {imageTargets[currentFaceID - 1].name}");
+                        Debug.Log($"📦 Total Packets: {totalPackets}");
+                        Debug.Log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+                    }
                 }
                 
                 newDataAvailable = false;
@@ -169,8 +187,8 @@ public class VuforiaIMUController : MonoBehaviour
         // Update debug UI
         if (debugText != null)
         {
-            debugText.text = $"Current Face: {currentFaceID}\n" +
-                           $"Active: ImageTarget_{currentFaceID}\n" +
+            string faceStatus = currentFaceID == 0 ? "NO VALID FACE" : $"Face {currentFaceID}";
+            debugText.text = $"Current: {faceStatus}\n" +
                            $"Packets: {totalPackets}";
         }
     }
@@ -228,6 +246,13 @@ public class VuforiaIMUController : MonoBehaviour
             if (imageTargets[i] != null)
             {
                 imageTargets[i].SetActive(false);
+                
+                // Also disable Vuforia tracking
+                var trackable = imageTargets[i].GetComponent<ObserverBehaviour>();
+                if (trackable != null)
+                {
+                    trackable.enabled = false;
+                }
             }
         }
     }

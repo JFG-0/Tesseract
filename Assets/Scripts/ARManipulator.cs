@@ -16,11 +16,15 @@ public class ARManipulator : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float SpeedRotation = 0.4f;
-    public float SpeedZoom = 0.5f;
+    public float SpeedZoom = 0.33f;  // MODIFIED: 66% of original 0.5f for slower zoom
 
     [Header("Zoom Limits")]
     public float MinScale = 0.5f;
     public float MaxScale = 3.0f;
+
+    [Header("Elastic Zoom")]
+    [Tooltip("Speed at which zoom returns to initial scale")]
+    public float elasticReturnSpeed = 5.0f;
 
     [Header("Animation Link")]
     public Animator AnimatorObject;
@@ -41,6 +45,8 @@ public class ARManipulator : MonoBehaviour
     // For pinch zoom
     private float initialPinchDistance;
     private float initialScale;
+    private Vector3 baseScale;      // ADDED: Store base scale for elastic return
+    private bool isPinching = false; // ADDED: Track pinch state for elastic return
 
     void OnEnable()
     {
@@ -56,6 +62,7 @@ public class ARManipulator : MonoBehaviour
     void Start()
     {
         initialRotation = transform.localRotation;
+        baseScale = transform.localScale;  // ADDED: Remember original scale
 
         // Verify collider exists
         Collider col = GetComponentInChildren<Collider>();
@@ -80,13 +87,27 @@ public class ARManipulator : MonoBehaviour
     {
         ProcessTouchInput();
         ProcessMouseInput();
+        
+        // ADDED: Elastic return - smoothly return to base scale when not pinching
+        if (!isPinching)
+        {
+            ReturnToBaseScale();
+        }
     }
 
     void ProcessTouchInput()
     {
         var activeTouches = Touch.activeTouches;
         
-        if (activeTouches.Count == 0) return;
+        if (activeTouches.Count == 0)
+        {
+            // ADDED: End pinch when no touches
+            if (isPinching)
+            {
+                isPinching = false;
+            }
+            return;
+        }
 
         // Two-finger pinch zoom
         if (activeTouches.Count == 2)
@@ -213,26 +234,42 @@ public class ARManipulator : MonoBehaviour
             {
                 initialPinchDistance = Vector2.Distance(pos0, pos1);
                 initialScale = transform.localScale.x;
+                isPinching = true;  // ADDED
                 isDragging = true;
                 
                 if (enableDebugLogs) Debug.Log($"[ARManipulator] Pinch started on {gameObject.name}");
             }
         }
 
-        if (isDragging && t0.phase == TouchPhase.Moved && t1.phase == TouchPhase.Moved)
+        if (isPinching && t0.phase == TouchPhase.Moved && t1.phase == TouchPhase.Moved)  // MODIFIED: check isPinching
         {
             float currentDistance = Vector2.Distance(pos0, pos1);
             if (initialPinchDistance > 0)
             {
-                float scaleFactor = currentDistance / initialPinchDistance;
-                float newScale = Mathf.Clamp(initialScale * scaleFactor, MinScale, MaxScale);
+                // MODIFIED: Dampen scale factor for slower zoom feel
+                float rawScaleFactor = currentDistance / initialPinchDistance;
+                float dampenedScaleFactor = Mathf.Lerp(1.0f, rawScaleFactor, SpeedZoom * 2f);
+                
+                float newScale = Mathf.Clamp(initialScale * dampenedScaleFactor, MinScale, MaxScale);
                 transform.localScale = Vector3.one * newScale;
             }
         }
 
         if (t0.phase == TouchPhase.Ended || t1.phase == TouchPhase.Ended)
         {
+            isPinching = false;  // ADDED
             isDragging = false;
+        }
+    }
+
+    /// <summary>
+    /// ADDED: Smoothly return to base scale when not pinching (elastic behavior)
+    /// </summary>
+    void ReturnToBaseScale()
+    {
+        if (Vector3.Distance(transform.localScale, baseScale) > 0.001f)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, baseScale, Time.deltaTime * elasticReturnSpeed);
         }
     }
 
